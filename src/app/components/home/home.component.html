@@ -1,0 +1,139 @@
+<div class="home w-full h-full bg-gray-100">
+  <div class="bg-white w-full h-full">
+    <nav
+      class="flex justify-between w-full min-h-[7vh] items-center text-center ps-8"
+    >
+      <div class="logo font-[900] text-[#0085ff] text-2xl">Storefront</div>
+
+      <div class="nav-lists lg:flex justify-around items-center w-[20%] hidden">
+        <a routerLink="/login" class="cursor-pointer">Log in</a>
+        <a
+          routerLink="/register"
+          class="text-white primary-color rounded px-6 py-2 cursor-pointer"
+          >Register</a
+        >
+      </div>
+
+      <div
+        class="relative cursor-pointer block lg:hidden me-8"
+        (click)="toggleMenu()"
+      >
+        <img [src]="hamburgerMenu" class="w-7 h-6" alt="" />
+      </div>
+    </nav>
+
+    <div
+      [ngClass]="{ flex: IsMenuOpen === true, hidden: IsMenuOpen === false }"
+      class="flex flex-col my-8 items-center justify-center absolute right-8 top-6 z-10 px-8 py-4 lg:hidden bg-white"
+    >
+      <a
+        routerLink="/login"
+        class="text-white primary-color rounded px-4 py-2 cursor-pointer w-full"
+        >Register</a
+      >
+      <a routerLink="/login" class="cursor-pointer mt-4">Log in</a>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto container my-8 text-center md:text-left w-full h-full px-8 py-10"
+  >
+    <div class="hero-page flex flex-col md:flex-row gap-5">
+      <div class="hero_title lg:w-2/4">
+        <h1 class="font-extrabold text-3xl md:text-5xl lg:text-7xl lg:py-5">
+          More than <br />Just templates
+        </h1>
+
+        <p class="text-md lg:text-xl my-5 lg:w-3/4 w-full">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          vulputate libero et velit interdum, ac aliquet odio mattis.
+        </p>
+
+        <button
+          class="primary-color text-white rounded mt-10 px-8 py-2 hidden md:block"
+        >
+          Get Started
+        </button>
+      </div>
+      <div class="hero_image-container lg:w-2/4">
+        <img [src]="heroImage" class="" alt="hero_image" />
+      </div>
+    </div>
+
+    <div class="team my-12">
+      <div class="heading pb-12 text-center md:text-left">
+        <h2 class="font-bold text-3xl">Meet The Team</h2>
+      </div>
+
+      <div class="flex flex-col lg:flex-row justify-between gap-5">
+        <div
+          class="div flex flex-col md:flex-row lg:flex-col items-center md:items-start"
+        >
+          <img [src]="memberImage" alt="image here" class="w-1/2 md:order-2" />
+          <p class="md:order-1 lg:order-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            vulputate libero et velit interdum, ac aliquet odio mattis. Class
+            aptent taciti.
+          </p>
+        </div>
+        <div
+          class="div flex flex-col md:flex-row lg:flex-col items-center md:items-start"
+        >
+          <img [src]="memberImage2" alt="image here" class="w-1/2" />
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            vulputate libero et velit interdum, ac aliquet odio mattis. Class
+            aptent taciti.
+          </p>
+        </div>
+        <div
+          class="div flex flex-col md:flex-row lg:flex-col items-center md:items-start"
+        >
+          <img
+            [src]="memberImage3"
+            alt="image here"
+            class="w-1/2 md:order-2 lg:order-1"
+          />
+          <p class="lg:order-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            vulputate libero et velit interdum, ac aliquet odio mattis. Class
+            aptent taciti.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="mb-12 mx-auto container px-8 flex flex-col md:flex-row w-full h-full lg:h-[70vh] justify-around"
+>
+  <div *ngIf="bottomArray" class="flex flex-col text-left justify-center">
+    <div
+      *ngFor="let item of bottomArray; let isLast = last"
+      class="md:my-8 my-4"
+    >
+      <h2
+        class="font-semibold text-lg lg:text-3xl pb-4"
+        [ngClass]="{ 'md:border-b-2 ': !isLast }"
+      >
+        {{ item.title }}
+      </h2>
+    </div>
+  </div>
+  <img [src]="bottomImage" class="md:w-[40%]" alt="preview" />
+</div>
+
+<footer
+  class="w-full h-full bg-gray-100 flex flex-col items-center text-center py-8 px-4"
+>
+  <h3 class="font-bold text-2xl pb-4">Lorem ipsum dolor sit amet</h3>
+
+  <p class="lg:w-1/2 md:w-3/4 w-full">
+    Lorem ipsum dolor sit amet consectetur adipiscing elit. Nunc vulputate
+    libero et velit interdum, ac aliquet odio mattis. Class aptent taciti
+    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+    Curabitur tempus urna at turpis condimentum lobortis. Class aptent taciti
+    sociosqu ad litora torquent per conubia nostra.
+  </p>
+</footer>
