@@ -10,6 +10,13 @@
         >
           Log in
         </h2>
+
+        <p
+          class="error-message text-red-500 py-1 font-semibold text-center"
+          *ngIf="showErrorMessage()"
+        >
+          {{ errorMessage }}
+        </p>
         <div
           class="form-group w-full bg-white rounded-md px-4 pb-2 mb-8"
           [class.error-border]="email && email.invalid && email.touched"
@@ -24,15 +31,30 @@
           />
         </div>
         <div
-          class="form-group w-full bg-white rounded-md px-4 pb-2 mb-2"
+          class="form-group w-full bg-white rounded-md px-4 pb-2 mb-2 relative"
           [class.error-border]="password && password.touched"
         >
           <label for="Name" class="text-[#AAAAAA] text-xs">Password</label>
           <input
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             class="text-sm block w-full border-none outline-none border-gray-300"
             placeholder="********"
             formControlName="password"
+          />
+
+          <img
+            *ngIf="!showPassword"
+            src="../assets/eye-open.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="togglePasswordVisibility()"
+          />
+          <img
+            *ngIf="showPassword"
+            src="../assets/eye-slash.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="togglePasswordVisibility()"
           />
         </div>
 
@@ -62,8 +84,9 @@
           </button>
 
           <button
-            class="bg-[#0267FF] w-full lg:w-2/4 hover:text-blue-600 hover:bg-white py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
+            class="bg-[#0267FF] disabled:cursor-not-allowed disabled:bg-blue-300 disabled:hover:text-white w-full lg:w-2/4 hover:text-blue-600 hover:bg-white py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
             type="submit"
+            [disabled]="loginForm.invalid"
           >
             Log in
           </button>
