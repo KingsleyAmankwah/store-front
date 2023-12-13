@@ -5,3 +5,15 @@
 .primary-color {
   background: #0085ff;
 }
+
+.error-border {
+  border: 1px solid red;
+  padding: 8px 0px;
+  padding-inline-start: 1rem;
+}
+
+.success-border {
+  border: 1px solid rgb(71, 184, 71);
+  padding: 8px 0px;
+  padding-inline-start: 1rem;
+}
