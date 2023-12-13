@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -16,23 +16,41 @@ import { CustomValidators } from '../custom-validators';
   templateUrl: './individual-sign-up.component.html',
   styleUrl: './individual-sign-up.component.css',
 })
-export class IndividualSignUpComponent {
+export class IndividualSignUpComponent implements OnInit {
   registerForm!: FormGroup;
+  showPassword = false;
+  showConfirmPassword = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder) {
-    this.buildRegisterForm();
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.buildRegisterationForm();
   }
 
-  buildRegisterForm() {
+  buildRegisterationForm() {
     this.registerForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
         [Validators.required, CustomValidators.passwordStrength()],
       ],
-      confirmPassword: ['', Validators.required],
+      confirmPassword: [
+        '',
+        Validators.required,
+        CustomValidators.passwordStrength(),
+      ],
     });
+  }
+
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registerForm.get('lastName');
   }
 
   get email() {
@@ -47,23 +65,6 @@ export class IndividualSignUpComponent {
     return this.registerForm.get('confirmPassword');
   }
 
-  showErrorMessage(): boolean {
-    if (this.email && this.email.invalid && this.email.touched) {
-      this.errorMessage = this.email.errors?.['required']
-        ? 'Email is required!'
-        : this.email.errors?.['email']
-        ? 'Please provide a valid email.'
-        : '';
-      return true;
-    } else if (this.passwordsMismatch()) {
-      this.errorMessage = 'Passwords must match!';
-      return true;
-    }
-
-    this.errorMessage = ''; // Reset the error message if no errors
-    return false;
-  }
-
   passwordsMatch() {
     return (
       this.confirmPassword?.touched &&
@@ -76,5 +77,44 @@ export class IndividualSignUpComponent {
       this.registerForm.get('confirmPassword')?.touched &&
       this.password?.value !== this.confirmPassword?.value
     );
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  showErrorMessage(): boolean {
+    if (this.firstName && this.firstName.invalid && this.firstName.touched) {
+      this.errorMessage = this.firstName.errors?.['required']
+        ? 'First name is required!'
+        : '';
+      return true;
+    } else if (
+      this.lastName &&
+      this.lastName.invalid &&
+      this.lastName.touched
+    ) {
+      this.errorMessage = this.lastName.errors?.['required']
+        ? 'Last name is required!'
+        : '';
+      return true;
+    } else if (this.email && this.email.invalid && this.email.touched) {
+      this.errorMessage = this.email.errors?.['required']
+        ? 'Email is required!'
+        : this.email.errors?.['email']
+        ? 'Please provide a valid email.'
+        : '';
+      return true;
+    } else if (this.passwordsMismatch()) {
+      this.errorMessage = 'Passwords must match!';
+      return true;
+    } else {
+      this.errorMessage = '';
+      return false;
+    }
   }
 }
