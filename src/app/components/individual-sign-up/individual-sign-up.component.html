@@ -12,6 +12,7 @@
       <form
         class="flex flex-col w-full justify-center items-center px-8 pt-6 pb-8 mb-4"
         [formGroup]="registerForm"
+        autocomplete="off"
       >
         <h2
           class="font-bold text-2xl lg:text-5xl text-center text-[#0267FF] mt-8 pb-4"
@@ -20,19 +21,41 @@
         </h2>
 
         <p
-          class="error-message text-red-500 py-2 font-semibold"
+          class="error-message text-red-500 py-1 font-semibold"
           *ngIf="showErrorMessage()"
         >
           {{ errorMessage }}
         </p>
 
-        <div class="form-group w-full bg-white rounded-md px-4 pb-2 mb-8">
-          <label for="Name" class="text-[#AAAAAA] text-xs">First Name</label>
-          <input
-            type="text"
-            class="text-sm block w-full border-none outline-none border-gray-300"
-            placeholder="write name here..."
-          />
+        <div class="flex w-full justify-between gap-4 mb-5 mt-2">
+          <div
+            class="form-group w-full lg:w-1/2 bg-white rounded-md px-4 pb-2"
+            [class.error-border]="
+              firstName && firstName.invalid && firstName.touched
+            "
+          >
+            <label for="Name" class="text-[#AAAAAA] text-xs">First Name</label>
+            <input
+              type="text"
+              class="text-sm block w-full border-none outline-none border-gray-300"
+              placeholder="write name here..."
+              formControlName="firstName"
+            />
+          </div>
+          <div
+            class="form-group w-full lg:w-1/2 bg-white rounded-md px-4 pb-2"
+            [class.error-border]="
+              lastName && lastName.invalid && lastName.touched
+            "
+          >
+            <label for="Name" class="text-[#AAAAAA] text-xs">Last Name</label>
+            <input
+              type="text"
+              class="text-sm block w-full border-none outline-none border-gray-300"
+              placeholder="write name here..."
+              formControlName="lastName"
+            />
+          </div>
         </div>
 
         <div
@@ -56,10 +79,25 @@
         >
           <label for="password" class="text-[#AAAAAA] text-xs">Password</label>
           <input
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             class="text-sm block w-full border-none outline-none border-gray-300"
             placeholder="********"
             formControlName="password"
+          />
+
+          <img
+            *ngIf="!showPassword"
+            src="../assets/eye-open.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="togglePasswordVisibility()"
+          />
+          <img
+            *ngIf="showPassword"
+            src="../assets/eye-slash.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="togglePasswordVisibility()"
           />
 
           <div
@@ -67,7 +105,7 @@
           >
             <small
               *ngIf="password && password?.errors?.['passwordStrength']"
-              class="text-black text-xs flex items-end justify-end italic px-2 py-1"
+              class="text-black text-xs flex items-end justify-end italic px-2 py-1 relative"
             >
               Passwords must contain at least 8 characters, including UPPERCASE,
               lowercase letters, a number, and a special character (&#64;$%^&*).
@@ -75,7 +113,7 @@
           </div>
         </div>
         <div
-          class="form-group w-full bg-white rounded-md px-4 pb-2"
+          class="form-group w-full bg-white rounded-md px-4 pb-2 relative"
           [class.error-border]="passwordsMismatch()"
           [class.success-border]="passwordsMatch()"
         >
@@ -83,16 +121,33 @@
             >Confirm Password</label
           >
           <input
-            type="password"
+            [type]="showConfirmPassword ? 'text' : 'password'"
             class="text-sm block w-full border-none outline-none border-gray-300"
             placeholder="********"
             formControlName="confirmPassword"
           />
+
+          <img
+            *ngIf="!showConfirmPassword"
+            src="../assets/eye-open.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="toggleConfirmPasswordVisibility()"
+          />
+
+          <img
+            *ngIf="showConfirmPassword"
+            src="../assets/eye-slash.png"
+            alt="eye-open"
+            class="w-5 h-4 absolute right-4 top-5 cursor-pointer"
+            (click)="toggleConfirmPasswordVisibility()"
+          />
         </div>
 
         <button
-          class="bg-[#0267FF] hover:bg-blue-600 px-20 py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
+          class="bg-[#0267FF] disabled:cursor-not-allowed disabled:bg-blue-300 hover:bg-blue-600 px-20 py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
           type="submit"
+          [disabled]="registerForm.invalid"
         >
           Create Account
         </button>
