@@ -39,15 +39,14 @@ Status
 
 <br>
 
-## :dart: About
+<!-- ## :dart: About
 
-Describe your project
+An ecommerce store -->
 
 ## :sparkles: Features
 
 :heavy_check_mark: Custom Input Validations;\
 :heavy_check_mark: User friendly responsiveness;\
-:heavy_check_mark: Feature 3;
 
 ## :rocket: Technologies
 
@@ -79,8 +78,6 @@ $ ng serve -o
 ```
 
 ## :memo: License
-
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 Made with :heart: by <a href="https://github.com/KingsleyAmankwah/" target="_blank">Kingsley Amankwah</a>
 
