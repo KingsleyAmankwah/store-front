@@ -4,6 +4,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { BusinessSignUpComponent } from './components/business-sign-up/business-sign-up.component';
 import { IndividualSignUpComponent } from './components/individual-sign-up/individual-sign-up.component';
 import { EmailVerificationPageComponent } from './components/email-verification-page/email-verification-page.component';
+import { ResetPasswordPageComponent } from './components/reset-password-page/reset-password-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -23,6 +24,12 @@ export const routes: Routes = [
     path: 'verify-email',
     component: EmailVerificationPageComponent,
     title: 'Verify Email',
+  },
+
+  {
+    path: 'reset-password',
+    component: ResetPasswordPageComponent,
+    title: 'Reset Password',
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
