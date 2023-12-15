@@ -20,7 +20,7 @@ export class ResetPasswordPageComponent implements OnInit {
 
   ngOnInit() {
     this.resetPasswordForm = this.fb.group({
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
