@@ -1,13 +1,16 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CustomValidators } from '../custom-validators';
+import { AuthService } from '../../services/auth.service';
+import { SignUpResponse, individualSignUpData } from '../../types';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-individual-sign-up',
@@ -16,19 +19,20 @@ import { CustomValidators } from '../custom-validators';
   templateUrl: './individual-sign-up.component.html',
   styleUrl: './individual-sign-up.component.css',
 })
-export class IndividualSignUpComponent implements OnInit {
+export class IndividualSignUpComponent {
   registerForm!: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.buildRegisterationForm();
-  }
-
-  buildRegisterationForm() {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -37,11 +41,7 @@ export class IndividualSignUpComponent implements OnInit {
         '',
         [Validators.required, CustomValidators.passwordStrength()],
       ],
-      confirmPassword: [
-        '',
-        Validators.required,
-        CustomValidators.passwordStrength(),
-      ],
+      confirmPassword: ['', Validators.required],
     });
   }
 
@@ -115,6 +115,48 @@ export class IndividualSignUpComponent implements OnInit {
     } else {
       this.errorMessage = '';
       return false;
+    }
+  }
+
+  onSubmit() {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+      const signUpData: individualSignUpData = {
+        firstName: this.registerForm.value.firstName,
+        lastName: this.registerForm.value.lastName,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+      };
+
+      this.authService.signUp(signUpData).subscribe({
+        next: (response) => {
+          console.info(response);
+          this.isLoading = false;
+          const res = response as SignUpResponse;
+
+          if (res.message) {
+            const message = res.message.toString();
+            Swal.fire({
+              icon: 'success',
+              title: message,
+              timer: 10000,
+            });
+          }
+
+          this.router.navigate(['/verify-email']);
+        },
+        error: (error) => {
+          const message = error.error.message.toString();
+
+          Swal.fire({
+            icon: 'error',
+            title: message,
+            timer: 3000,
+          });
+          this.isLoading = false;
+          console.error(error);
+        },
+      });
     }
   }
 }
