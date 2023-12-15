@@ -41,7 +41,7 @@ export class IndividualSignUpComponent {
         '',
         [Validators.required, CustomValidators.passwordStrength()],
       ],
-      confirmPassword: ['', Validators.required],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
