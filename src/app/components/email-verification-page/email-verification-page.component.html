@@ -1,0 +1,67 @@
+<div class="conatiner bg-gray-100 w-full min-h-screen">
+  <nav
+    class="flex justify-between w-full min-h-[7vh] items-center text-center ps-8"
+  >
+    <div class="logo font-[900] text-[#0085ff] text-2xl">Storefront</div>
+  </nav>
+  <div
+    class="flex flex-col justify-center items-center text-center min-h-[70vh] md:min-h-[50vh] w-full"
+  >
+    <h2 class="font-bold text-2xl lg:text-5xl text-center text-[#0267FF] my-8">
+      Authentication
+    </h2>
+
+    <p class="justify-start items-start text-md pb-4">
+      Please enter the verification code sent to your email address to continue
+      to your account.
+    </p>
+
+    <form [formGroup]="verificationForm" (ngSubmit)="submitCode()">
+      <div class="verification-code">
+        <input
+          type="text"
+          formControlName="digit1"
+          maxlength="1"
+          pattern="\d*"
+        />
+        <input
+          type="text"
+          formControlName="digit2"
+          maxlength="1"
+          pattern="\d*"
+        />
+        <input
+          type="text"
+          formControlName="digit3"
+          maxlength="1"
+          pattern="\d*"
+        />
+        <input
+          type="text"
+          formControlName="digit4"
+          maxlength="1"
+          pattern="\d*"
+        />
+        <input
+          type="text"
+          formControlName="digit5"
+          maxlength="1"
+          pattern="\d*"
+        />
+        <input
+          type="text"
+          formControlName="digit6"
+          maxlength="1"
+          pattern="\d*"
+        />
+      </div>
+      <button
+        class="bg-[#0267FF] disabled:cursor-not-allowed disabled:bg-blue-300 disabled:hover:text-white w-full lg:w-2/4 hover:text-blue-600 hover:bg-white py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
+        type="submit"
+        [disabled]="verificationForm.invalid"
+      >
+        Continue
+      </button>
+    </form>
+  </div>
+</div>

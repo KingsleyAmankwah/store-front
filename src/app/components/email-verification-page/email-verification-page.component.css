@@ -1,0 +1,13 @@
+.verification-code input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  margin: 5px;
+  font-size: 20px;
+  border: 1px solid rgb(93, 223, 93);
+}
+
+.verification-code input:focus {
+  outline: none;
+  border-color: red;
+}
