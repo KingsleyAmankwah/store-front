@@ -5,6 +5,7 @@ import { BusinessSignUpComponent } from './components/business-sign-up/business-
 import { IndividualSignUpComponent } from './components/individual-sign-up/individual-sign-up.component';
 import { EmailVerificationPageComponent } from './components/email-verification-page/email-verification-page.component';
 import { ResetPasswordPageComponent } from './components/reset-password-page/reset-password-page.component';
+import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -30,6 +31,11 @@ export const routes: Routes = [
     path: 'reset-password',
     component: ResetPasswordPageComponent,
     title: 'Reset Password',
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordPageComponent,
+    title: 'New Password',
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
