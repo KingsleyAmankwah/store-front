@@ -6,6 +6,8 @@ import { IndividualSignUpComponent } from './components/individual-sign-up/indiv
 import { EmailVerificationPageComponent } from './components/email-verification-page/email-verification-page.component';
 import { ResetPasswordPageComponent } from './components/reset-password-page/reset-password-page.component';
 import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
+import { authGuard } from './guards/auth.guard';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -24,6 +26,7 @@ export const routes: Routes = [
   {
     path: 'verify-email',
     component: EmailVerificationPageComponent,
+    canActivate: [authGuard],
     title: 'Verify Email',
   },
 
