@@ -6,8 +6,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CustomValidators } from '../custom-validators';
+import { AuthService } from '../../services/auth.service';
+import { SignUpResponse, businessSignUpData } from '../../types';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-business-sign-up',
@@ -16,19 +19,20 @@ import { CustomValidators } from '../custom-validators';
   templateUrl: './business-sign-up.component.html',
   styleUrl: './business-sign-up.component.css',
 })
-export class BusinessSignUpComponent implements OnInit {
+export class BusinessSignUpComponent {
   registerForm!: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.handleRegisterationForm();
-  }
-
-  handleRegisterationForm() {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -100,5 +104,47 @@ export class BusinessSignUpComponent implements OnInit {
 
     this.errorMessage = '';
     return false;
+  }
+
+  onSubmit() {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+
+      const signUpData: businessSignUpData = {
+        name: this.registerForm.value.name,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+      };
+
+      this.authService.signUpBusiness(signUpData).subscribe({
+        next: (response) => {
+          console.info(response);
+          this.isLoading = false;
+          const res = response as SignUpResponse;
+
+          if (res.message) {
+            const message = res.message.toString();
+            Swal.fire({
+              icon: 'success',
+              title: message,
+              timer: 5000,
+            });
+            sessionStorage.setItem('userEmail', signUpData.email);
+            this.router.navigate(['/verify-email']);
+          }
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.errorMessage = err.error.message;
+
+          Swal.fire({
+            icon: 'error',
+            text: err.error.message,
+            timer: 5000,
+          });
+          console.log(err);
+        },
+      });
+    }
   }
 }
