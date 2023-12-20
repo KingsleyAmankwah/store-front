@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -128,7 +128,7 @@ export class IndividualSignUpComponent {
         password: this.registerForm.value.password,
       };
 
-      this.authService.signUp(signUpData).subscribe({
+      this.authService.signUpIndividual(signUpData).subscribe({
         next: (response) => {
           console.info(response);
           this.isLoading = false;
@@ -139,10 +139,11 @@ export class IndividualSignUpComponent {
             Swal.fire({
               icon: 'success',
               title: message,
-              timer: 10000,
+              timer: 5000,
             });
           }
 
+          sessionStorage.setItem('userEmail', signUpData.email);
           this.router.navigate(['/verify-email']);
         },
         error: (error) => {
