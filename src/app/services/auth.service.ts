@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { individualSignInData, individualSignUpData } from '../types';
+import { SignInData, businessSignUpData, individualSignUpData } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  signUp(userData: individualSignUpData) {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+  signUpIndividual(userData: individualSignUpData) {
+    return this.http.post(`${this.apiUrl}/register/individual`, userData);
   }
 
-  signIn(userData: individualSignInData) {
+  signUpBusiness(userData: businessSignUpData) {
+    return this.http.post(`${this.apiUrl}/register/business`, userData);
+  }
+
+  verifyEmail(email: string, verificationCode: string) {
+    return this.http.post(`${this.apiUrl}/verify-account`, {
+      email,
+      verificationCode,
+    });
+  }
+
+  signIn(userData: SignInData) {
     return this.http.post(`${this.apiUrl}/login`, userData);
   }
 }
