@@ -5,25 +5,19 @@ export interface individualSignUpData {
   password: string;
 }
 
-export interface individualSignInData {
+export interface businessSignUpData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface SignInData {
   email: string;
   password: string;
 }
 
 export interface SignUpResponse {
   suceess: boolean;
-
-  data: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    token: string;
-    verificationCode: string;
-    isVerified: boolean;
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-  };
   message: string;
+  data: {};
 }
