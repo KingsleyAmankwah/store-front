@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SignInData, businessSignUpData, individualSignUpData } from '../types';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://auth-endpoints-v1.onrender.com';
+  // private apiUrl = 'https://auth-endpoints-v1.onrender.com';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +29,11 @@ export class AuthService {
 
   signIn(userData: SignInData) {
     return this.http.post(`${this.apiUrl}/login`, userData);
+  }
+
+  logout() {
+    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('userData');
+    // this.router.navigate(['/login']);
   }
 }
