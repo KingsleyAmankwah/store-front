@@ -86,9 +86,9 @@
           <button
             class="bg-[#0267FF] disabled:cursor-not-allowed disabled:bg-blue-300 disabled:hover:text-white w-full lg:w-2/4 hover:text-blue-600 hover:bg-white py-2.5 text-white font-normal text-xs leading-tight rounded-md my-8"
             type="submit"
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || isLoading"
           >
-            Log in
+            {{ isLoading ? "Loading..." : "Log in" }}
           </button>
         </div>
 
