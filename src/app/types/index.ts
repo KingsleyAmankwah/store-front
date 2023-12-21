@@ -21,3 +21,16 @@ export interface SignUpResponse {
   message: string;
   data: {};
 }
+
+export interface SignInResponse {
+  suceess: boolean;
+  data: {};
+  token: string;
+  message: string;
+}
+
+export interface verifyEmailResponse {
+  success: boolean;
+  token: string;
+  message: string;
+}
