@@ -12,9 +12,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (isPlatformBrowser(platformId)) {
-    const userEmail = sessionStorage.getItem('userEmail');
+    const authToken = sessionStorage.getItem('authToken');
 
-    if (!userEmail) {
+    if (!authToken) {
       return router.createUrlTree(['/register']);
     } else {
       return true;
