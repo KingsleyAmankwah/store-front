@@ -1,0 +1,12 @@
+/* In sidebar.component.css */
+.sidebar-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar-menu ul li a {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  /* Add more styles as needed */
+}
