@@ -6,7 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { SignInData, SignInResponse } from '../../types';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -19,13 +22,15 @@ export class AuthComponent implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
   errorMessage = '';
-  constructor(private fb: FormBuilder) {}
+  isLoading = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.handleUserAuth();
-  }
-
-  handleUserAuth() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -55,6 +60,43 @@ export class AuthComponent implements OnInit {
     } else {
       this.errorMessage = '';
       return false;
+    }
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.isLoading = true;
+
+      const loginData: SignInData = {
+        email: this.email?.value,
+        password: this.password?.value,
+      };
+
+      this.authService.signIn(loginData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          console.log(response);
+          const userData = response as SignInResponse;
+          sessionStorage.setItem('authToken', userData.token);
+          sessionStorage.setItem('userData', JSON.stringify(userData.data));
+
+          // Navigate to another route after successful login
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.error.message;
+
+          Swal.fire({
+            icon: 'error',
+            text: this.errorMessage,
+            timer: 5000,
+          });
+          console.log(error);
+        },
+      });
+
+      return;
     }
   }
 }
