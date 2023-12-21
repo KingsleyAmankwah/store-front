@@ -30,10 +30,4 @@ export class AuthService {
   signIn(userData: SignInData) {
     return this.http.post(`${this.apiUrl}/login`, userData);
   }
-
-  logout() {
-    sessionStorage.removeItem('authToken');
-    sessionStorage.removeItem('userData');
-    // this.router.navigate(['/login']);
-  }
 }
