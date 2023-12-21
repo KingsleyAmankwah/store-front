@@ -80,7 +80,13 @@ export class AuthComponent implements OnInit {
           sessionStorage.setItem('authToken', userData.token);
           sessionStorage.setItem('userData', JSON.stringify(userData.data));
 
-          // Navigate to another route after successful login
+          const res = response as SignInResponse;
+          Swal.fire({
+            icon: 'success',
+            text: res.message,
+            timer: 5000,
+          });
+
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
