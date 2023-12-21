@@ -8,6 +8,9 @@ import { ResetPasswordPageComponent } from './components/reset-password-page/res
 import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
 import { authGuard } from './guards/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { DashboardMainContentComponent } from './components/dashboard-main-content/dashboard-main-content.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -33,6 +36,14 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: DashboardMainContentComponent,
+      },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent },
+    ],
     title: 'Dashboard',
   },
 
