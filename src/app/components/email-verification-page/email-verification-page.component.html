@@ -25,36 +25,48 @@
           formControlName="digit1"
           maxlength="1"
           pattern="\d*"
+          #digit1
+          (keyup)="onKeyup(digit1, digit2)"
         />
         <input
           type="text"
           formControlName="digit2"
           maxlength="1"
           pattern="\d*"
+          #digit2
+          (keyup)="onKeyup(digit2, digit3)"
         />
         <input
           type="text"
           formControlName="digit3"
           maxlength="1"
           pattern="\d*"
+          #digit3
+          (keyup)="onKeyup(digit3, digit4)"
         />
         <input
           type="text"
           formControlName="digit4"
           maxlength="1"
           pattern="\d*"
+          #digit4
+          (keyup)="onKeyup(digit4, digit5)"
         />
         <input
           type="text"
           formControlName="digit5"
           maxlength="1"
           pattern="\d*"
+          #digit5
+          (keyup)="onKeyup(digit5, digit6)"
         />
         <input
           type="text"
           formControlName="digit6"
           maxlength="1"
           pattern="\d*"
+          #digit6
+          (keyup)="onKeyup(digit6, null)"
         />
       </div>
       <button

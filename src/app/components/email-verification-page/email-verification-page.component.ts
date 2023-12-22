@@ -40,6 +40,12 @@ export class EmailVerificationPageComponent {
     });
   }
 
+  onKeyup(currentInput: HTMLInputElement, nextInput: HTMLInputElement | null) {
+    if (currentInput.value.length === 1 && nextInput) {
+      nextInput.focus();
+    }
+  }
+
   submitCode() {
     if (this.verificationForm.valid) {
       this.isLoading = true;
@@ -61,9 +67,16 @@ export class EmailVerificationPageComponent {
         next: (response) => {
           this.isLoading = false;
           const res = response as verifyEmailResponse;
-
+          console.log(res);
           if (res.success && res.token) {
+            const message = res.message.toString();
+            Swal.fire({
+              icon: 'success',
+              title: message,
+              timer: 5000,
+            });
             sessionStorage.setItem('authToken', res.token);
+            sessionStorage.setItem('userData', JSON.stringify(res.data));
             sessionStorage.removeItem('userEmail');
 
             this.router.navigate(['/dashboard']);
