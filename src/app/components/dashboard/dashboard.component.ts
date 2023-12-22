@@ -3,7 +3,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { ProfileComponent } from '../profile/profile.component';
-import { SettingsComponent } from '../settings/settings.component';
+import { ProjectComponent } from '../project/project.component';
+import { SupportComponent } from '../support/support.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +12,9 @@ import { SettingsComponent } from '../settings/settings.component';
   imports: [
     NavbarComponent,
     SidebarComponent,
+    ProjectComponent,
     ProfileComponent,
-    SettingsComponent,
+    SupportComponent,
     RouterOutlet,
   ],
   templateUrl: './dashboard.component.html',
