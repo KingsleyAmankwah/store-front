@@ -142,7 +142,6 @@ export class IndividualSignUpComponent {
               timer: 5000,
             });
           }
-
           sessionStorage.setItem('userEmail', signUpData.email);
           this.router.navigate(['/verify-email']);
         },
@@ -152,7 +151,7 @@ export class IndividualSignUpComponent {
           Swal.fire({
             icon: 'error',
             title: message,
-            timer: 3000,
+            timer: 5000,
           });
           this.isLoading = false;
           console.error(error);
