@@ -1,1 +1,18 @@
-<p>profile works!</p>
+<div
+  class="container w-full flex flex-col items-center space-y-4 mt-12 mx-auto"
+>
+  <div class="profile flex flex-row items-center">
+    <img
+      *ngIf="userImage"
+      [src]="userImage"
+      alt="User Avatar"
+      class="avatar rounded-full w-20 h-20 mx-4"
+    />
+    <h2 class="font-bold">{{ userName }}</h2>
+  </div>
+  <div class="details flex flex-col">
+    <form action="">
+      <input type="text" />
+    </form>
+  </div>
+</div>
