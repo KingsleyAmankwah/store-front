@@ -1,19 +1,32 @@
-<div class="conatiner bg-[#00284C] w-full h-full">
+<div class="container bg-[#00284C] w-full min-h-screen text-white">
   <!-- sidebar.component.html -->
   <div class="sidebar-menu">
-    <ul class="flex flex-col items-center">
-      <!-- <li><a routerLink="/dashboard" class="cursor-pointer">Dashboard</a></li> -->
-      <a routerLink="/dashboard" [routerLinkActive]="['link-active']"
-        >Dashboard</a
+    <ul class="flex flex-col space-y-4 items-center">
+      <li
+        class="flex flex-row items-center justify-center hover:bg-[#0085ff] hover:w-full"
       >
+        <img src="../assets/dashboard.png" class="w-4 h-4" />
+        <a routerLink="/dashboard" class="cursor-pointer">Dashboard</a>
+      </li>
 
-      <li>
+      <li
+        class="flex flex-row items-center justify-center hover:bg-[#0085ff] hover:w-full"
+      >
+        <img src="../assets/projects.png" class="w-4 h-4 -ml-5" />
+        <a routerLink="/dashboard/projects" class="cursor-pointer">Projects</a>
+      </li>
+      <li
+        class="flex flex-row items-center justify-center hover:bg-[#0085ff] hover:w-full"
+      >
+        <img src="../assets/profile.png" class="w-4 h-4 -ml-8" />
         <a routerLink="/dashboard/profile" class="cursor-pointer">Profile</a>
       </li>
-      <li>
-        <a routerLink="/dashboard/settings" class="cursor-pointer">Settings</a>
+      <li
+        class="flex flex-row items-center justify-center hover:bg-[#0085ff] hover:w-full"
+      >
+        <img src="../assets/support.png" class="w-4 h-4 -ml-5" />
+        <a routerLink="/dashboard/support" class="cursor-pointer">Support</a>
       </li>
-      <!-- Add other links as needed -->
     </ul>
   </div>
 </div>
