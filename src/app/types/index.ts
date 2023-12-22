@@ -33,4 +33,5 @@ export interface verifyEmailResponse {
   success: boolean;
   token: string;
   message: string;
+  data: [];
 }
