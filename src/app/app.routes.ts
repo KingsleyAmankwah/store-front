@@ -9,8 +9,9 @@ import { ChangePasswordPageComponent } from './components/change-password-page/c
 import { authGuard } from './guards/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { DashboardMainContentComponent } from './components/dashboard-main-content/dashboard-main-content.component';
+import { SupportComponent } from './components/support/support.component';
+import { ProjectComponent } from './components/project/project.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -42,7 +43,8 @@ export const routes: Routes = [
         component: DashboardMainContentComponent,
       },
       { path: 'profile', component: ProfileComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'projects', component: ProjectComponent },
+      { path: 'support', component: SupportComponent },
     ],
     title: 'Dashboard',
   },
