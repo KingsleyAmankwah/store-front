@@ -1,0 +1,21 @@
+<nav
+  class="flex justify-between w-full min-h-[7vh] items-center text-center ps-8 bg-white"
+>
+  <div class="flex flex-row items-center">
+    <img
+      *ngIf="userImage"
+      [src]="userImage"
+      alt="User Avatar"
+      class="avatar rounded-full w-10 h-10 mx-4"
+    />
+    <span *ngIf="!userImage">Avatar here</span>
+    <div class="user-info" *ngIf="userName">
+      {{ userName }}
+      <span class="dropdown-arrow" (click)="toggleDropdown()">▼</span>
+      <div class="dropdown-menu" *ngIf="showDropdown">
+        <button (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+  <div class="logo font-[900] text-[#0085ff] text-2xl px-4">Storefront</div>
+</nav>
