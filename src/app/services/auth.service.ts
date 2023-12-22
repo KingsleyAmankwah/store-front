@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignInData, businessSignUpData, individualSignUpData } from '../types';
+import {
+  SignInData,
+  SignInResponse,
+  SignUpResponse,
+  businessSignUpData,
+  individualSignUpData,
+} from '../types';
 import { environment } from '../../environment/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +19,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  signUpIndividual(userData: individualSignUpData) {
-    return this.http.post(`${this.apiUrl}/register/individual`, userData);
+  signUpIndividual(userData: individualSignUpData): Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(
+      `${this.apiUrl}/register/individual`,
+      userData
+    );
   }
 
-  signUpBusiness(userData: businessSignUpData) {
-    return this.http.post(`${this.apiUrl}/register/business`, userData);
+  signUpBusiness(userData: businessSignUpData): Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(
+      `${this.apiUrl}/register/business`,
+      userData
+    );
   }
 
   verifyEmail(email: string, verificationCode: string) {
@@ -27,7 +40,7 @@ export class AuthService {
     });
   }
 
-  signIn(userData: SignInData) {
-    return this.http.post(`${this.apiUrl}/login`, userData);
+  signIn(userData: SignInData): Observable<SignInResponse> {
+    return this.http.post<SignInResponse>(`${this.apiUrl}/login`, userData);
   }
 }
