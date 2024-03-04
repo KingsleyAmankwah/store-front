@@ -67,7 +67,6 @@ export class EmailVerificationPageComponent {
         next: (response) => {
           this.isLoading = false;
           const res = response as verifyEmailResponse;
-          console.log(res);
           if (res.success && res.token) {
             const message = res.message.toString();
             Swal.fire({

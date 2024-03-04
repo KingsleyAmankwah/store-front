@@ -142,7 +142,6 @@ export class BusinessSignUpComponent {
             text: err.error.message,
             timer: 5000,
           });
-          console.log(err);
         },
       });
     }

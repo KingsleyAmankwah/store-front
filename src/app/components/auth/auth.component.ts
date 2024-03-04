@@ -75,7 +75,6 @@ export class AuthComponent implements OnInit {
       this.authService.signIn(loginData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          console.log(response);
           const userData = response as SignInResponse;
           sessionStorage.setItem('authToken', userData.token);
           sessionStorage.setItem('userData', JSON.stringify(userData.data));
@@ -98,7 +97,6 @@ export class AuthComponent implements OnInit {
             text: this.errorMessage,
             timer: 5000,
           });
-          console.log(error);
         },
       });
 

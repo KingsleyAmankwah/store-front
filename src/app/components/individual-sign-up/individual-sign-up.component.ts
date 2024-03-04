@@ -130,7 +130,6 @@ export class IndividualSignUpComponent {
 
       this.authService.signUpIndividual(signUpData).subscribe({
         next: (response) => {
-          console.info(response);
           this.isLoading = false;
           const res = response as SignUpResponse;
 
@@ -154,7 +153,6 @@ export class IndividualSignUpComponent {
             timer: 5000,
           });
           this.isLoading = false;
-          console.error(error);
         },
       });
     }
